@@ -3,8 +3,9 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-// TODO: Add and configure workbox plugins for a service worker and manifest file.
-// TODO: Add CSS loaders and babel to webpack.
+// TODO: Add and configure workbox plugins for a service worker and manifest file. -- DONE
+// TODO: add names to manifest -- DONE
+// TODO: Add CSS loaders and babel to webpack. -- DONE
 
 module.exports = () => {
   return {
@@ -20,26 +21,20 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'Contact Cards'
-      }),
-
-      // Injects our custom service worker
-      new InjectManifest({
-        swSrc: './src-sw.js',
-        swDest: 'src-sw.js',
       }),
 
       // Creates a manifest.json file.
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
-        name: '',
-        short_name: '',
-        description: '',
-        background_color: '#225ca3',
-        theme_color: '#225ca3',
+        name: 'JATE',
+        short_name: 'JATE',
+        description: 'Just Another Text Editor',
+        background_color: '#1e1e1e',
+        theme_color: '#1e1e1e',
         start_url: './',
         publicPath: './',
+        fingerprints: false,
         icons: [
           {
             src: path.resolve('src/images/logo.png'),
@@ -48,6 +43,12 @@ module.exports = () => {
           },
         ],
       }),
+         
+      // Injects our custom service worker
+         new InjectManifest({
+          swSrc: './src-sw.js',
+          swDest: 'src-sw.js',
+        }),
     ],
 
     module: {
